@@ -1,4 +1,57 @@
-document.addEventListener("DOMContentLoaded", () => {
+import re
+import os
+
+def recover():
+    # Paths
+    workspace_dir = r"d:\ONEDRIVER\OneDrive\01. ANTIGRAVITI\ARCT.STUDIO\WEB"
+    dist_html_path = os.path.join(workspace_dir, "dist", "index.html")
+    src_html_path = os.path.join(workspace_dir, "index.html")
+    src_js_path = os.path.join(workspace_dir, "main.js")
+
+    # Load built index.html
+    if not os.path.exists(dist_html_path):
+        print(f"Error: {dist_html_path} does not exist!")
+        return
+        
+    html = open(dist_html_path, encoding='utf-8').read()
+
+    # Replace scripts and css back to source
+    html = html.replace('<script type="module" crossorigin src="./assets/index-CVi-pmRC.js"></script>', '<script type="module" src="./main.js"></script>')
+    html = html.replace('<link rel="stylesheet" crossorigin href="./assets/index-CPk_VV0r.css">', '<link rel="stylesheet" href="./style.css">')
+
+    # Define mappings from compiled assets back to source assets
+    mappings = {
+        './assets/about-BlmWy56t.jpg': './assets/images/about.jpg',
+        './assets/blog1-bI5p1YrP.jpg': './assets/images/blog1.jpg',
+        './assets/blog2-Di5k97IV.jpg': './assets/images/blog2.jpg',
+        './assets/blog3-CqtAX288.jpg': './assets/images/blog3.jpg',
+        './assets/blog4-GZ-kL0IY.jpg': './assets/images/blog4.jpg',
+        './assets/blog5-DL72te2X.jpg': './assets/images/blog5.jpg',
+        './assets/blog6-C39pUm7v.jpg': './assets/images/blog6.jpg',
+        './assets/blog7-D9iUQu5A.jpg': './assets/images/blog7.jpg',
+        './assets/hero-bg-DmaWIWyC.jpg': './assets/images/hero-bg.jpg',
+        './assets/logo-Bga1jX3E.png': './assets/images/logo.png',
+        './assets/project1-DrC3UC63.jpg': './assets/images/project1.jpg',
+        './assets/project2-CXx8XciS.jpg': './assets/images/project2.jpg',
+        './assets/project3-CyzIc34j.jpg': './assets/images/project3.jpg',
+        './assets/project4-XzUXL8dE.jpg': './assets/images/project4.jpg',
+        './assets/project5-Ck9a6NQ5.jpg': './assets/images/project5.jpg',
+        './assets/project6-Dinv4MJF.jpg': './assets/images/project6.jpg',
+        './assets/z7795636798375_7ae67c046180adbc6502ac4feabe66fd-DZDdjAEV.jpg': './assets/images/z7795636798375_7ae67c046180adbc6502ac4feabe66fd.jpg',
+    }
+
+    for k, v in mappings.items():
+        html = html.replace(k, v)
+
+    # Replace all name variations to ARCT Studio
+    html = html.replace('ARCT-STUDIO', 'ARCT Studio').replace('ARCT - STUDIO', 'ARCT Studio')
+
+    # Write to source index.html
+    open(src_html_path, 'w', encoding='utf-8').write(html)
+    print('Source index.html reconstructed successfully!')
+
+    # Reconstruct the beautiful main.js
+    js_content = """document.addEventListener("DOMContentLoaded", () => {
   
   // Sticky Header
   const header = document.getElementById('header');
@@ -331,7 +384,7 @@ document.addEventListener("DOMContentLoaded", () => {
       "Thiết Kế & Thi Công Nhà Phố": "<p>Nhà phố hiện đại đòi hỏi một giải pháp thiết kế cực kỳ tinh gọn, tối đa hóa công năng trên một diện tích hạn chế. Quy trình của chúng tôi bao gồm:</p><ul><li>Phân tích vi khí hậu và hướng nắng gió.</li><li>Thiết kế mặt bằng công năng mở, sử dụng giếng trời và mảng xanh lõi.</li><li>Ứng dụng công nghệ nhà thông minh (Smart Home).</li><li>Thi công xây dựng trọn gói với tiêu chuẩn khắt khe, cam kết sai số dưới 2mm.</li></ul><p><em>Hãy để ARCT Studio kiến tạo tổ ấm trong mơ giữa lòng đô thị cho bạn.</em></p>",
       "Biệt Thự & Căn Hộ Hạng Sang": "<p>Đẳng cấp của một không gian sống xa xỉ không nằm ở sự dát vàng dát bạc, mà nằm ở tỷ lệ hoàn hảo, vật liệu độc bản và ánh sáng điện ảnh.</p><p>Các chuyên gia của chúng tôi chuyên tư vấn, thiết kế và thi công trọn gói cho biệt thự đơn lập, siêu biệt thự ven biển và penthouse. Đặc quyền của bạn khi làm việc với chúng tôi là:</p><ul><li>Sử dụng nội thất nhập khẩu từ các thương hiệu hàng đầu Châu Âu.</li><li>Thiết kế cảnh quan (Landscape) đồng bộ với phong cách kiến trúc.</li><li>Quản lý dự án chuyên nghiệp theo tiêu chuẩn quốc tế.</li></ul>",
       "Sauna, Fitness & Wellness": "<p>Là chuyên gia hàng đầu trong mảng Wellness, ARCT Studio mang đến các giải pháp thiết kế Sauna, Steam room và Fitness theo chuẩn y khoa và nghỉ dưỡng 5 sao.</p><p>Hệ thống bao gồm:</p><ul><li>Phòng xông hơi khô (Sauna) sử dụng gỗ Hemlock/Cedar nhập khẩu Canada, chịu nhiệt tốt và tỏa hương thơm tự nhiên.</li><li>Hệ thống đèn tia hồng ngoại (Infrared) giúp trẻ hóa tế bào.</li><li>Setup trang thiết bị phòng Gym hiện đại đạt chuẩn quốc tế.</li></ul><p><em>Sức khỏe của bạn là tài sản quý giá nhất, hãy để chúng tôi chăm sóc nó ngay tại nhà.</em></p>",
-      "Thiết Kế Spa & Boutique Hotel": "<p>Không gian kinh doanh dịch vụ đòi hỏi một bài toán kinh tế kết hợp nghệ thuật trải nghiệm khách hàng hoàn hảo.</p><p>Chúng tôi cung cấp giải pháp toàn diện:</p><ul><li>Quy hoạch Concept tổng thể tạo điểm nhấn "Wow" cho khách lưu trú.</li><li>Thiết kế chiếu sáng cường độ thấp kích thích sự thư giãn tối đa.</li><li>Tối ưu hóa luồng giao thông nội bộ (Back-of-house) dành riêng cho nhân viên vận hành, không làm phiền khách.</li><li>Tuyển chọn vật liệu chống ẩm, chống trượt, dễ bảo trì nhưng cực kỳ sang trọng.</li></ul>"
+      "Thiết Kế Spa & Boutique Hotel": "<p>Không gian kinh doanh dịch vụ đòi hỏi một bài toán kinh tế kết hợp nghệ thuật trải nghiệm khách hàng hoàn hảo.</p><p>Chúng tôi cung cấp giải pháp toàn diện:</p><ul><li>Quy hoạch Concept tổng thể tạo điểm nhấn \"Wow\" cho khách lưu trú.</li><li>Thiết kế chiếu sáng cường độ thấp kích thích sự thư giãn tối đa.</li><li>Tối ưu hóa luồng giao thông nội bộ (Back-of-house) dành riêng cho nhân viên vận hành, không làm phiền khách.</li><li>Tuyển chọn vật liệu chống ẩm, chống trượt, dễ bảo trì nhưng cực kỳ sang trọng.</li></ul>"
     })[title] || "<p>Chi tiết dịch vụ đang được cập nhật...</p>";
   };
 
@@ -428,4 +481,9 @@ document.addEventListener("DOMContentLoaded", () => {
       openModal(modalHtml);
     });
   });
-});
+});"""
+    open(src_js_path, 'w', encoding='utf-8').write(js_content)
+    print('Source main.js reconstructed successfully!')
+
+if __name__ == "__main__":
+    recover()

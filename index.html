@@ -1,0 +1,391 @@
+﻿<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="ARCT Studio: Kiêu Hãnh Trong Từng Đường Nét. Chuyên gia thiết kế và thi công Nhà phố, Biệt thự, Spa, Sauna & Wellness.">
+  <title>ARCT Studio | Kiến trúc & Thiết kế nội thất</title>
+  
+  <!-- Google Fonts: Montserrat and Lato -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Main Stylesheet -->
+  <script type="module" src="./main.js"></script>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="header" id="header">
+    <div class="header-container grid-container">
+      <div class="logo">
+        <a href="#">
+          <img src="./assets/images/logo.png" alt="ARCT Studio Logo" id="logo-img">
+        </a>
+      </div>
+      <nav class="main-nav" id="main-nav">
+        <ul>
+          <li><a href="#services" data-en="Services">Dịch Vụ</a></li>
+          <li><a href="#projects" data-en="Projects">Dự Án</a></li>
+          <li><a href="#pricing" data-en="Pricing">Báo Giá</a></li>
+          <li><a href="#blog" data-en="Insights">Bài Viết</a></li>
+          <li><a href="#about" data-en="About Us">Về Chúng Tôi</a></li>
+          <li><a href="#contact" data-en="Contact">Liên Hệ</a></li>
+        </ul>
+      </nav>
+      <div class="header-actions" style="display: flex; align-items: center; gap: 1.5rem;">
+        <div class="lang-switch">
+          <span class="lang-btn active" data-lang="vi" style="cursor:pointer; padding: 0.5rem 0;">VN</span> <span style="opacity: 0.5;">/</span> <span class="lang-btn" data-lang="en" style="cursor:pointer; padding: 0.5rem 0;">EN</span>
+        </div>
+        <div class="mobile-menu-btn" id="mobile-menu-btn" style="cursor:pointer;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:28px; height:28px;"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO SECTION -->
+  <section class="hero">
+    <div class="hero-bg" id="hero-bg"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content grid-container fade-in-up">
+      <h1 class="hero-title" data-en="ARCT Studio: Pride In<br>Every Detail.">ARCT Studio: Kiêu Hãnh Trong<br>Từng Đường Nét.</h1>
+      <p class="hero-subtext" data-en="Experts in designing and constructing Townhouses, Villas, Spas, Saunas & Wellness spaces.">Chuyên gia thiết kế và thi công Nhà phố, Biệt thự, Spa, Sauna & Wellness.</p>
+      <a href="#projects" class="btn btn-primary" data-en="View Projects">Xem Dự Án</a>
+    </div>
+  </section>
+
+  <!-- ABOUT SECTION -->
+  <section id="about" class="about section-padding grid-container fade-in-up">
+    <div class="about-image-wrapper">
+      <img src="./assets/images/about.jpg" alt="Architectural Details" class="about-image">
+    </div>
+    <div class="about-text-wrapper">
+      <span class="blog-category" style="margin-bottom: 1rem; display: block;">VỀ ARCT Studio</span>
+      <h2 class="section-title">KIẾN TẠO DI SẢN<br>VƯỢT THỜI GIAN</h2>
+      <div class="section-body">
+        <p>Thành lập với khát vọng định chuẩn lại không gian sống thượng lưu, <strong>ARCT Studio</strong> không đơn thuần là một công ty thiết kế và xây dựng. Chúng tôi là những người "kể chuyện bằng không gian", biến những vật liệu vô tri như bê tông, gỗ đá thành những tác phẩm nghệ thuật mang đậm dấu ấn cá nhân của từng gia chủ.</p>
+        <p style="margin-top: 1rem;">Với hơn một thập kỷ kinh nghiệm thực chiến trong các dự án <strong>Biệt thự, Nhà phố hạng sang và Không gian Wellness chuẩn 5 sao</strong>, triết lý của chúng tôi xoay quanh ba giá trị cốt lõi: <em>Công Năng Ưu Việt - Thẩm Mỹ Độc Bản - Bền Vững Với Tự Nhiên</em>. Mỗi nét vẽ của chúng tôi đều chứa đựng sự kiêu hãnh và cam kết tuyệt đối về chất lượng hoàn thiện.</p>
+      </div>
+      <div class="about-stats" style="margin-top: 2rem; display: flex; gap: 3rem;">
+        <div>
+          <h4 style="font-size: 2.5rem; color: var(--primary-teal); font-family: var(--font-heading); font-weight: 700;">10+</h4>
+          <p style="font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; color: var(--accent-gold); font-weight: 600;" data-en="10+ Years Experience">Năm Kinh Nghiệm</p>
+        </div>
+        <div>
+          <h4 style="font-size: 2.5rem; color: var(--primary-teal); font-family: var(--font-heading); font-weight: 700;">150+</h4>
+          <p style="font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; color: var(--accent-gold); font-weight: 600;" data-en="150+ Completed Projects">Dự Án Hoàn Thành</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES SECTION -->
+  <section id="services" class="services section-padding bg-light">
+    <div class="grid-container">
+      <div class="services-grid">
+        <!-- Service 1 -->
+        <div class="service-card fade-in-up" style="transition-delay: 0.1s;">
+          <div class="service-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3 12l9-9 9 9M5 10v10a1 1 0 001 1h3m10-11v10a1 1 0 01-1 1h-3m-6 0V11a1 1 0 011-1h2a1 1 0 011 1v10"/></svg>
+          </div>
+          <h3>Thiết Kế & Thi Công Nhà Phố</h3>
+          <p>Giải pháp kiến trúc đương đại nhằm tối ưu hóa diện tích hẹp, đưa ánh sáng tự nhiên và mảng xanh vào lõi không gian, tạo nên những tổ ấm yên bình giữa lòng đô thị náo nhiệt.</p>
+        </div>
+        <!-- Service 2 -->
+        <div class="service-card fade-in-up" style="transition-delay: 0.2s;">
+          <div class="service-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+          </div>
+          <h3>Biệt Thự & Căn Hộ Hạng Sang</h3>
+          <p>Thiết kế cá nhân hóa tôn vinh vị thế gia chủ. Từ ngôn ngữ Tân cổ điển đến Siêu thực (Ultra-modern), mọi chi tiết nội - ngoại thất đều được chế tác tinh xảo, định hình phong cách sống xa xỉ.</p>
+        </div>
+        <!-- Service 3 -->
+        <div class="service-card fade-in-up" style="transition-delay: 0.3s;">
+          <div class="service-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+          </div>
+          <h3>Sauna, Fitness & Wellness</h3>
+          <p>Tiên phong trong lĩnh vực kiến trúc chăm sóc sức khỏe. Tích hợp công nghệ lọc không khí, chiếu sáng sinh học và âm thanh đa vùng, kiến tạo "resort tại gia" giúp tái tạo năng lượng hoàn hảo.</p>
+        </div>
+        <!-- Service 4 -->
+        <div class="service-card fade-in-up" style="transition-delay: 0.4s;">
+          <div class="service-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456zM16.894 20.567L16.5 21.75l-.394-1.183a2.25 2.25 0 00-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 001.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 001.423 1.423l1.183.394-1.183.394a2.25 2.25 0 00-1.423 1.423z" /></svg>
+          </div>
+          <h3>Thiết Kế Spa & Boutique Hotel</h3>
+          <p>Xây dựng trải nghiệm khách hàng xuất sắc thông qua không gian. Quy hoạch luồng giao thông tinh tế, sử dụng vật liệu mộc bản để mang lại cảm giác thư thái tuyệt đối cho mọi giác quan.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS (PORTFOLIO) SECTION -->
+  <section id="projects" class="projects section-padding">
+    <div class="grid-container">
+      <div class="projects-grid">
+        <div class="project-card fade-in-up">
+          <img src="./assets/images/project1.jpg" alt="Nhà Phố Sài Gòn">
+          <div class="project-overlay">
+            <h4>Nhà Phố Sài Gòn</h4>
+            <p>TP. Hồ Chí Minh</p>
+          </div>
+        </div>
+        <div class="project-card fade-in-up" style="transition-delay: 0.1s;">
+          <img src="./assets/images/z7795636798375_7ae67c046180adbc6502ac4feabe66fd.jpg" alt="Dự Án Sauna Resort">
+          <div class="project-overlay">
+            <h4>Dự Án Sauna Resort</h4>
+            <p>Đà Lạt</p>
+          </div>
+        </div>
+        <div class="project-card fade-in-up" style="transition-delay: 0.2s;">
+          <img src="./assets/images/project3.jpg" alt="Wellness Hub">
+          <div class="project-overlay">
+            <h4>Wellness Hub</h4>
+            <p>Nha Trang</p>
+          </div>
+        </div>
+        <div class="project-card fade-in-up" style="transition-delay: 0.3s;">
+          <img src="./assets/images/project4.jpg" alt="Biệt Thự Vũng Tàu">
+          <div class="project-overlay">
+            <h4>Biệt Thự Vũng Tàu</h4>
+            <p>Vũng Tàu</p>
+          </div>
+        </div>
+        <div class="project-card fade-in-up" style="transition-delay: 0.4s;">
+          <img src="./assets/images/project5.jpg" alt="Phòng Gym 5 Sao">
+          <div class="project-overlay">
+            <h4>Phòng Gym & Fitness Cao Cấp</h4>
+            <p>Quận 2, TP. HCM</p>
+          </div>
+        </div>
+        <div class="project-card fade-in-up" style="transition-delay: 0.5s;">
+          <img src="./assets/images/project6.jpg" alt="Tòa Nhà Văn Phòng Hiện Đại">
+          <div class="project-overlay">
+            <h4>Tòa Nhà Văn Phòng Xanh</h4>
+            <p>Hà Nội</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING SECTION -->
+  <section id="pricing" class="pricing section-padding bg-light">
+    <div class="grid-container">
+      <div style="text-align: center; margin-bottom: 4rem;">
+        <span class="blog-category">BẢNG GIÁ DỊCH VỤ</span>
+        <h2 class="section-title" style="margin-bottom: 1rem;">BÁO GIÁ THIẾT KẾ CHI TIẾT</h2>
+        <p style="color: var(--text-muted); max-width: 600px; margin: 0 auto; font-size: 1.1rem;">Minh bạch trong từng hạng mục. Chúng tôi cung cấp các gói giải pháp linh hoạt, phù hợp với từng quy mô dự án và yêu cầu khắt khe nhất của gia chủ.</p>
+      </div>
+
+      <div class="pricing-grid">
+        <!-- Pricing 1 -->
+        <div class="pricing-card fade-in-up">
+          <h3>Nhà Phố & Căn Hộ</h3>
+          <div class="price">
+            <span class="amount">350</span>
+            <span class="currency">.000 VNĐ/m²</span>
+          </div>
+          <ul class="pricing-features">
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg> Phối cảnh 3D ngoại thất & nội thất</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg> Hồ sơ kỹ thuật thi công chi tiết</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg> Dự toán chi phí vật tư cơ bản</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg> Giám sát tác giả 3 lần</li>
+            <li class="disabled"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg> Thiết kế hệ thống Smart Home</li>
+          </ul>
+          <a href="#contact" class="btn btn-primary btn-block">Nhận Tư Vấn</a>
+        </div>
+
+        <!-- Pricing 2 -->
+        <div class="pricing-card featured fade-in-up" style="transition-delay: 0.1s;">
+          <div class="badge">Được Yêu Thích</div>
+          <h3>Biệt Thự Hạng Sang</h3>
+          <div class="price">
+            <span class="amount">550</span>
+            <span class="currency">.000 VNĐ/m²</span>
+          </div>
+          <ul class="pricing-features">
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg> Phối cảnh 3D siêu thực (Hyper-Realistic)</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg> Hồ sơ bản vẽ chi tiết & ME tiêu chuẩn</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg> Thiết kế cảnh quan (Landscape)</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg> Dự toán chi tiết vật tư cao cấp</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg> Giám sát tác giả suốt thi công</li>
+          </ul>
+          <a href="#contact" class="btn btn-primary btn-block">Nhận Tư Vấn</a>
+        </div>
+
+        <!-- Pricing 3 -->
+        <div class="pricing-card fade-in-up" style="transition-delay: 0.2s;">
+          <h3>Spa & Wellness</h3>
+          <div class="price">
+            <span class="amount">800</span>
+            <span class="currency">.000 VNĐ/m²</span>
+          </div>
+          <ul class="pricing-features">
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg> Concept trải nghiệm không gian 5 sao</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg> Thiết kế chuyên sâu luồng giao thông</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg> Tư vấn công nghệ (Sauna, Infrared, v.v.)</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg> Hồ sơ chiếu sáng sinh học cao cấp</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg> Báo giá vật liệu & thiết bị độc quyền</li>
+          </ul>
+          <a href="#contact" class="btn btn-primary btn-block">Nhận Tư Vấn</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BLOG / ARTICLES SECTION -->
+  <section id="blog" class="blog section-padding bg-light">
+    <div class="grid-container">
+      <div class="section-title-center fade-in-up" style="text-align: center; margin-bottom: 3rem;">
+        <h2 class="section-title">BÀI VIẾT NỔI BẬT</h2>
+        <p class="section-body">Khám phá những xu hướng thiết kế kiến trúc và không gian sống wellness mới nhất.</p>
+      </div>
+      <div class="blog-grid">
+        <!-- Blog 1 -->
+        <div class="blog-card fade-in-up">
+          <div class="blog-image">
+            <img src="./assets/images/blog1.jpg" alt="Xu Hướng Kiến Trúc Tối Giản Xanh">
+          </div>
+          <div class="blog-content">
+            <span class="blog-category">Kiến Trúc</span>
+            <h3>Xu Hướng Kiến Trúc Tối Giản Xanh</h3>
+            <p>Sự kết hợp hoàn hảo giữa vật liệu hiện đại và mảng xanh thiên nhiên, tạo nên không gian sống tối giản nhưng ngập tràn sinh khí.</p>
+            <a href="#" class="read-more">Đọc thêm →</a>
+          </div>
+        </div>
+        <!-- Blog 2 -->
+        <div class="blog-card fade-in-up" style="transition-delay: 0.2s;">
+          <div class="blog-image">
+            <img src="./assets/images/blog2.jpg" alt="Tiêu Chuẩn Thiết Kế Phòng Gym & Spa">
+          </div>
+          <div class="blog-content">
+            <span class="blog-category">Wellness</span>
+            <h3>Tiêu Chuẩn Thiết Kế Phòng Gym & Spa Chuẩn 5 Sao</h3>
+            <p>Bí quyết thiết kế ánh sáng, âm thanh và vật liệu để mang lại trải nghiệm thư giãn đẳng cấp nhất cho không gian spa và gym.</p>
+            <a href="#" class="read-more">Đọc thêm →</a>
+          </div>
+        </div>
+        <!-- Blog 3 -->
+        <div class="blog-card fade-in-up" style="transition-delay: 0.3s;">
+          <div class="blog-image">
+            <img src="./assets/images/blog3.jpg" alt="Tích Hợp AI Vào Thiết Kế">
+          </div>
+          <div class="blog-content">
+            <span class="blog-category">Công Nghệ</span>
+            <h3>Tích Hợp AI Vào Thiết Kế Kiến Trúc Tương Lai</h3>
+            <p>Cách trí tuệ nhân tạo đang thay đổi cách chúng ta tư duy về không gian và hình khối kiến trúc.</p>
+            <a href="#" class="read-more">Đọc thêm →</a>
+          </div>
+        </div>
+        <!-- Blog 4 -->
+        <div class="blog-card fade-in-up" style="transition-delay: 0.4s;">
+          <div class="blog-image">
+            <img src="./assets/images/blog4.jpg" alt="Vật Liệu Sinh Học">
+          </div>
+          <div class="blog-content">
+            <span class="blog-category">Bền Vững</span>
+            <h3>Vật Liệu Sinh Học: Tương Lai Của Xây Dựng Bền Vững</h3>
+            <p>Sử dụng tre, sợi nấm và đất nện để tạo ra những công trình thân thiện với môi trường mà vẫn bền bỉ.</p>
+            <a href="#" class="read-more">Đọc thêm →</a>
+          </div>
+        </div>
+        <!-- Blog 5 -->
+        <div class="blog-card fade-in-up" style="transition-delay: 0.5s;">
+          <div class="blog-image">
+            <img src="./assets/images/blog5.jpg" alt="Nghệ Thuật Ánh Sáng">
+          </div>
+          <div class="blog-content">
+            <span class="blog-category">Nội Thất</span>
+            <h3>Nghệ Thuật Ánh Sáng Tự Nhiên Trong Nhà Phố Kín</h3>
+            <p>Giải pháp lấy sáng thông minh giúp ngôi nhà ống luôn ngập tràn năng lượng và ánh nắng mặt trời.</p>
+            <a href="#" class="read-more">Đọc thêm →</a>
+          </div>
+        </div>
+        <!-- Blog 6 -->
+        <div class="blog-card fade-in-up" style="transition-delay: 0.6s;">
+          <div class="blog-image">
+            <img src="./assets/images/blog6.jpg" alt="Phong Cách Brutalism">
+          </div>
+          <div class="blog-content">
+            <span class="blog-category">Xu Hướng</span>
+            <h3>Phong Cách Brutalism Hiện Đại Lên Ngôi Năm 2026</h3>
+            <p>Vẻ đẹp thô ráp của bê tông trần kết hợp cùng nội thất xa xỉ tạo nên sự tương phản đầy cuốn hút.</p>
+            <a href="#" class="read-more">Đọc thêm →</a>
+          </div>
+        </div>
+        <!-- Blog 7 -->
+        <div class="blog-card fade-in-up" style="transition-delay: 0.7s;">
+          <div class="blog-image">
+            <img src="./assets/images/blog7.jpg" alt="Tối Ưu Vi Khí Hậu">
+          </div>
+          <div class="blog-content">
+            <span class="blog-category">Ngoại Thất</span>
+            <h3>Tối Ưu Vi Khí Hậu Trong Thiết Kế Biệt Thự Nhiệt Đới</h3>
+            <p>Tận dụng luồng gió tự nhiên và mảng xanh để làm mát công trình trong điều kiện khí hậu nhiệt đới.</p>
+            <a href="#" class="read-more">Đọc thêm →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT / FOOTER SECTION -->
+  <footer id="contact" class="footer">
+    <div class="grid-container footer-grid fade-in-up">
+      <div class="footer-info">
+        <h2 class="footer-title">HÃY CÙNG CHÚNG TÔI<br>HIỆN THỰC HÓA GIẤC MƠ</h2>
+        <div class="contact-details">
+          <p><strong>CÔNG TY TNHH THIẾT KẾ XÂY DỰNG ARCT (ARCT Studio)</strong></p>
+          <p>Địa chỉ: Phường Thới An, Thành phố Hồ Chí Minh</p>
+          <p>Email: arct.studio.co@gmail.com</p>
+          <p>Hotline 1: 0907 983 889</p>
+          <p>Hotline 2: 0984 300 320</p>
+        </div>
+        <div class="social-links">
+          <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg></a>
+          <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg></a>
+          <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg></a>
+        </div>
+      </div>
+      
+      <div class="footer-form">
+        <form id="contact-form">
+          <div class="form-group">
+            <input type="text" id="name" placeholder="Họ và Tên" data-en-placeholder="Full Name" required>
+          </div>
+          <div class="form-group">
+            <input type="email" id="email" placeholder="Email" data-en-placeholder="Email" required>
+          </div>
+          <div class="form-group">
+            <textarea id="project-desc" rows="4" placeholder="Mô tả dự án của bạn..." data-en-placeholder="Describe your project..." required></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary btn-block">Gửi Yêu Cầu</button>
+        </form>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="grid-container">
+        <p>&copy; 2023 ARCT Studio. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- GENERIC DETAIL MODAL -->
+  <div id="detail-modal" class="blog-modal">
+    <div class="blog-modal-overlay" id="detail-modal-close-bg"></div>
+    <div class="blog-modal-content">
+      <button class="blog-modal-close" id="detail-modal-close-btn">&times;</button>
+      <div id="modal-dynamic-content">
+        <!-- Content injected via JS -->
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
+
+
