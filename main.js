@@ -131,6 +131,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let currentLang = "vi";
   window.currentGlobalLang = "vi";
+  let activeModalData = null;
 
   // Translate Node
   function translateNode(node, currentLang, targetLang) {
@@ -192,6 +193,54 @@ document.addEventListener("DOMContentLoaded", () => {
 
     currentLang = targetLang;
     window.currentGlobalLang = targetLang;
+
+    // Dynamically update active modal content if open
+    if (activeModalData && modalDynamicContent) {
+      if (activeModalData.type === 'blog') {
+        const { imgUrl, title, category } = activeModalData;
+        modalDynamicContent.innerHTML = `
+          <div class="blog-modal-image-wrapper">
+            <img src="${imgUrl}" alt="${title}">
+          </div>
+          <div class="blog-modal-text">
+            <span class="blog-category">${category}</span>
+            <h2>${title}</h2>
+            <div class="modal-body-content">${getBlogDetailContent(title, targetLang)}</div>
+          </div>
+        `;
+      } else if (activeModalData.type === 'service') {
+        const { title } = activeModalData;
+        modalDynamicContent.innerHTML = `
+          <div class="blog-modal-image-wrapper">
+            <img src="./assets/images/hero-bg.jpg" alt="${title}" style="filter: brightness(0.7);">
+          </div>
+          <div class="blog-modal-text">
+            <span class="blog-category">Chi Tiết Dịch Vụ</span>
+            <h2>${title}</h2>
+            <div class="modal-body-content">${getServiceDetailContent(title, targetLang)}</div>
+          </div>
+        `;
+      } else if (activeModalData.type === 'project') {
+        const { title, category, images } = activeModalData;
+        const galleryHtml = images.map(src => `<div class="gallery-item"><img src="${src}" alt="${title}"></div>`).join("");
+        modalDynamicContent.innerHTML = `
+          <div class="blog-modal-text" style="padding-bottom: 1rem; border-bottom: 1px solid rgba(0,0,0,0.05);">
+            <span class="blog-category">${category}</span>
+            <h2>${title}</h2>
+            <p class="modal-body-content" style="margin-bottom: 0;">Khám phá bộ sưu tập 6 hình ảnh chi tiết của dự án, thể hiện rõ nét triết lý thiết kế và mức độ hoàn thiện tinh xảo của ARCT Studio.</p>
+          </div>
+          <div class="modal-gallery-grid" style="padding: 2rem 3rem;">
+            ${galleryHtml}
+          </div>
+        `;
+        modalDynamicContent.querySelectorAll(".gallery-item").forEach((item, imgIdx) => {
+          item.addEventListener("click", () => {
+            openLightbox(images, imgIdx);
+          });
+        });
+      }
+      translateNode(modalDynamicContent, prevLang, targetLang);
+    }
   }
 
   // Language Button Listeners
@@ -244,31 +293,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Contact Form Submission
   const contactForm = document.getElementById("contact-form");
-  if (contactForm) {
-    contactForm.addEventListener("submit", e => {
-      e.preventDefault();
-      const submitBtn = contactForm.querySelector('button[type="submit"]');
-      const originalText = submitBtn.textContent;
-      submitBtn.textContent = "Đang Gửi...";
-      submitBtn.disabled = true;
-
-      setTimeout(() => {
-        submitBtn.textContent = "Đã Gửi Thành Công!";
-        submitBtn.style.backgroundColor = "#2ecc71";
-        submitBtn.style.borderColor = "#2ecc71";
-        contactForm.reset();
-
-        setTimeout(() => {
-          submitBtn.textContent = originalText;
-          submitBtn.style.backgroundColor = "";
-          submitBtn.style.borderColor = "";
-          submitBtn.disabled = false;
-        }, 3000);
-      }, 1500);
-    });
-  }
-
-  // Modal Functionality
+  if (contactForm)  // Modal Functionality
   const modal = document.getElementById("detail-modal");
   const modalCloseBtn = document.getElementById("detail-modal-close-btn");
   const modalCloseBg = document.getElementById("detail-modal-close-bg");
@@ -286,6 +311,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const closeModal = () => {
     modal.classList.remove("active");
     document.body.style.overflow = "auto";
+    activeModalData = null; // Clear active modal data
     setTimeout(() => {
       modalDynamicContent.innerHTML = "";
     }, 300);
@@ -294,40 +320,75 @@ document.addEventListener("DOMContentLoaded", () => {
   if (modalCloseBtn) modalCloseBtn.addEventListener("click", closeModal);
   if (modalCloseBg) modalCloseBg.addEventListener("click", closeModal);
 
-  // Blog Details Content DB
-  const getBlogDetailContent = (title) => {
-    return ({
-      "Xu Hướng Kiến Trúc Tối Giản Xanh": `
-        <p>Kiến trúc tối giản xanh (Minimalist Green Architecture) đang trở thành triết lý cốt lõi tại ARCT Studio. Bằng cách loại bỏ những chi tiết rườm rà và tập trung vào tỷ lệ hình khối, chúng tôi nhường chỗ cho thiên nhiên lên tiếng.</p>
-        <p>Việc ứng dụng các mảng xanh thông minh không chỉ dừng lại ở việc trồng cây, mà là sự tính toán kỹ lưỡng về hướng gió, vi khí hậu và khả năng thanh lọc không khí tự nhiên. Hệ thống lam che nắng tự động kết hợp cùng vật liệu thân thiện môi trường giúp công trình có khả năng tự "thở", giảm thiểu đến 40% năng lượng tiêu thụ.</p>
-        <p>ARCT Studio tin rằng, một không gian sống hoàn hảo là nơi con người và thiên nhiên giao hòa làm một, mang lại sự bình yên tuyệt đối sau những xô bồ của cuộc sống đô thị.</p>
-      `,
-      "Tiêu Chuẩn Thiết Kế Phòng Gym & Spa Chuẩn 5 Sao": `
-        <p>Thiết kế không gian Wellness (Gym & Spa) đòi hỏi những quy chuẩn vô cùng khắt khe về mặt kỹ thuật lẫn nghệ thuật trải nghiệm. Một phòng Spa 5 sao không chỉ là nơi làm đẹp, mà là một "thánh đường" của sự thư giãn.</p>
-        <p>Tại ARCT Studio, chúng tôi áp dụng nguyên tắc "Tĩnh - Động" phân minh. Khu vực Spa sử dụng vật liệu gỗ Teak ấm áp, đá tự nhiên nhám mờ cùng hệ thống ánh sáng gián tiếp (indirect lighting) với nhiệt độ màu chuẩn 2700K, kích thích cơ thể sản sinh Melatonin để thư giãn sâu.</p>
-        <p>Ngược lại, khu vực Fitness lại bùng nổ năng lượng với hệ gương vô cực, ánh sáng động 4000K sắc nét và hệ thống thông gió khử mùi ion âm tiên tiến nhất. Mọi chi tiết đều được đo lường để tối đa hóa trải nghiệm của giới thượng lưu.</p>
-      `,
-      "Tích Hợp AI Vào Thiết Kế Kiến Trúc Tương Lai": `
-        <p>Trí tuệ nhân tạo (AI) không còn là khái niệm viễn vông mà đã trở thành công cụ đắc lực tại ARCT Studio. Chúng tôi ứng dụng Generative Design để tối ưu hóa kết cấu và hình khối kiến trúc.</p>
-        <p>Chỉ với những thông số đầu vào về hướng nắng, sức gió và nhu cầu sinh hoạt, AI giúp tạo ra hàng nghìn phương án mặt bằng khác nhau. Từ đó, các kiến trúc sư của chúng tôi sẽ tinh chỉnh và chọn lọc ra giải pháp không gian hoàn mỹ nhất, vừa đảm bảo tính độc bản vừa đạt hiệu suất năng lượng tối đa.</p>
-      `,
-      "Vật Liệu Sinh Học: Tương Lai Của Xây Dựng Bền Vững": `
-        <p>Ngành xây dựng đang bước vào một cuộc cách mạng vật liệu, và ARCT Studio tự hào là một trong những đơn vị tiên phong ứng dụng vật liệu sinh học tại Việt Nam.</p>
-        <p>Sợi nấm (Mycelium), gạch đất nện gia cường, và tre ép công nghệ cao không chỉ có lượng phát thải carbon bằng không mà còn mang lại vẻ đẹp thô mộc, sang trọng đầy bất ngờ. Chúng tôi đang biến những công trình kiến trúc thành những thực thể sống thực sự, hòa quyện vào môi trường xung quanh.</p>
-      `,
-      "Nghệ Thuật Ánh Sáng Tự Nhiên Trong Nhà Phố Kín": `
-        <p>Nhà ống, nhà phố lô góc luôn đối mặt với bài toán thiếu sáng và ngột ngạt. ARCT Studio giải bài toán này bằng "Nghệ thuật điêu khắc ánh sáng".</p>
-        <p>Các khe sáng hẹp (slit skylights), giếng trời kết hợp hồ nước phản quang, và gạch kính (glass block) được tính toán theo biểu đồ mặt trời 365 ngày. Kết quả là những vạt nắng nhảy múa trên bức tường bê tông trần, thay đổi theo từng giờ trong ngày, biến ngôi nhà thành một tác phẩm nghệ thuật sống động.</p>
-      `,
-      "Phong Cách Brutalism Hiện Đại Lên Ngôi Năm 2026": `
-        <p>Brutalism (Chủ nghĩa thô mộc) đang quay trở lại mạnh mẽ trong phân khúc bất động sản hàng hiệu. Tuy nhiên, đó không còn là những khối bê tông lạnh lẽo, mà là sự tinh tế đến cùng cực.</p>
-        <p>ARCT Studio ứng dụng bê tông vân gỗ, bê tông mài sàn lộ đá (terrazzo) kết hợp cùng nội thất da bò Ý và kim loại mạ PVD ánh kim. Sự tương phản mãnh liệt giữa chất thô ráp của kiến trúc và sự mềm mại, xa xỉ của nội thất tạo nên một đẳng cấp không thể nhầm lẫn.</p>
-      `,
-      "Tối Ưu Vi Khí Hậu Trong Thiết Kế Biệt Thự Nhiệt Đới": `
-        <p>Biệt thự nhiệt đới (Tropical Villa) đòi hỏi sự am hiểu sâu sắc về khí hậu địa phương. Thiết kế của ARCT Studio luôn tuân thủ nguyên tắc "Che chở và Thông thoáng".</p>
-        <p>Hệ mái vươn dài (overhangs) ngăn chặn bức xạ nhiệt trực tiếp, trong khi mặt bằng không gian mở (open-plan) và hệ cửa trượt panorama cho phép gió đối lưu xuyên phòng. Kết hợp cùng hồ bơi sinh thái đóng vai trò như một cỗ máy điều hòa tự nhiên, mang lại không gian sống mát mẻ vĩnh cửu.</p>
-      `
-    })[title] || `<p>Đang cập nhật nội dung chi tiết cho bài viết: <strong>${title}</strong>.</p>`;
+  // Blog Details Content DB (Bilingual)
+  const getBlogDetailContent = (title, lang = window.currentGlobalLang) => {
+    const db = {
+      "vi": {
+        "Xu Hướng Kiến Trúc Tối Giản Xanh": `
+          <p>Kiến trúc tối giản xanh (Minimalist Green Architecture) đang trở thành triết lý cốt lõi tại ARCT Studio. Bằng cách loại bỏ những chi tiết rườm rà và tập trung vào tỷ lệ hình khối, chúng tôi nhường chỗ cho thiên nhiên lên tiếng.</p>
+          <p>Việc ứng dụng các mảng xanh thông minh không chỉ dừng lại ở việc trồng cây, mà là sự tính toán kỹ lưỡng về hướng gió, vi khí hậu và khả năng thanh lọc không khí tự nhiên. Hệ thống lam che nắng tự động kết hợp cùng vật liệu thân thiện môi trường giúp công trình có khả năng tự "thở", giảm thiểu đến 40% năng lượng tiêu thụ.</p>
+          <p>ARCT Studio tin rằng, một không gian sống hoàn hảo là nơi con người và thiên nhiên giao hòa làm một, mang lại sự bình yên tuyệt đối sau những xô bồ của cuộc sống đô thị.</p>
+        `,
+        "Tiêu Chuẩn Thiết Kế Phòng Gym & Spa Chuẩn 5 Sao": `
+          <p>Thiết kế không gian Wellness (Gym & Spa) đòi hỏi những quy chuẩn vô cùng khắt khe về mặt kỹ thuật lẫn nghệ thuật trải nghiệm. Một phòng Spa 5 sao không chỉ là nơi làm đẹp, mà là một "thánh đường" của sự thư giãn.</p>
+          <p>Tại ARCT Studio, chúng tôi áp dụng nguyên tắc "Tĩnh - Động" phân minh. Khu vực Spa sử dụng vật liệu gỗ Teak ấm áp, đá tự nhiên nhám mờ cùng hệ thống ánh sáng gián tiếp (indirect lighting) với nhiệt độ màu chuẩn 2700K, kích thích cơ thể sản sinh Melatonin để thư giãn sâu.</p>
+          <p>Ngược lại, khu vực Fitness lại bùng nổ năng lượng với hệ gương vô cực, ánh sáng động 4000K sắc nét và hệ thống thông gió khử mùi ion âm tiên tiến nhất. Mọi chi tiết đều được đo lường để tối đa hóa trải nghiệm của giới thượng lưu.</p>
+        `,
+        "Tích Hợp AI Vào Thiết Kế Kiến Trúc Tương Lai": `
+          <p>Trí tuệ nhân tạo (AI) không còn là khái niệm viễn vông mà đã trở thành công cụ đắc lực tại ARCT Studio. Chúng tôi ứng dụng Generative Design để tối ưu hóa kết cấu và hình khối kiến trúc.</p>
+          <p>Chỉ với những thông số đầu vào về hướng nắng, sức gió và nhu cầu sinh hoạt, AI giúp tạo ra hàng nghìn phương án mặt bằng khác nhau. Từ đó, các kiến trúc sư của chúng tôi sẽ tinh chỉnh và chọn lọc ra giải pháp không gian hoàn mỹ nhất, vừa đảm bảo tính độc bản vừa đạt hiệu suất năng lượng tối đa.</p>
+        `,
+        "Vật Liệu Sinh Học: Tương Lai Của Xây Dựng Bền Vững": `
+          <p>Ngành xây dựng đang bước vào một cuộc cách mạng vật liệu, và ARCT Studio tự hào là một trong những đơn vị tiên phong ứng dụng vật liệu sinh học tại Việt Nam.</p>
+          <p>Sợi nấm (Mycelium), gạch đất nện gia cường, và tre ép công nghệ cao không chỉ có lượng phát thải carbon bằng không mà còn mang lại vẻ đẹp thô mộc, sang trọng đầy bất ngờ. Chúng tôi đang biến những công trình kiến trúc thành những thực thể sống thực sự, hòa quyện vào môi trường xung quanh.</p>
+        `,
+        "Nghệ Thuật Ánh Sáng Tự Nhiên Trong Nhà Phố Kín": `
+          <p>Nhà ống, nhà phố lô góc luôn đối mặt với bài toán thiếu sáng và ngột ngạt. ARCT Studio giải bài toán này bằng "Nghệ thuật điêu khắc ánh sáng".</p>
+          <p>Các khe sáng hẹp (slit skylights), giếng trời kết hợp hồ nước phản quang, và gạch kính (glass block) được tính toán theo biểu đồ mặt trời 365 ngày. Kết quả là những vạt nắng nhảy múa trên bức tường bê tông trần, thay đổi theo từng giờ trong ngày, biến ngôi nhà thành một tác phẩm nghệ thuật sống động.</p>
+        `,
+        "Phong Cách Brutalism Hiện Đại Lên Ngôi Năm 2026": `
+          <p>Brutalism (Chủ nghĩa thô mộc) đang quay trở lại mạnh mẽ trong phân khúc bất động sản hàng hiệu. Tuy nhiên, đó không còn là những khối bê tông lạnh lẽo, mà là sự tinh tế đến cùng cực.</p>
+          <p>ARCT Studio ứng dụng bê tông vân gỗ, bê tông mài sàn lộ đá (terrazzo) kết hợp cùng nội thất da bò Ý và kim loại mạ PVD ánh kim. Sự tương phản mãnh liệt giữa chất thô ráp của kiến trúc và sự mềm mại, xa xỉ của nội thất tạo nên một đẳng cấp không thể nhầm lẫn.</p>
+        `,
+        "Tối Ưu Vi Khí Hậu Trong Thiết Kế Biệt Thự Nhiệt Đới": `
+          <p>Biệt thự nhiệt đới (Tropical Villa) đòi hỏi sự am hiểu sâu sắc về khí hậu địa phương. Thiết kế của ARCT Studio luôn tuân thủ nguyên tắc "Che chở và Thông thoáng".</p>
+          <p>Hệ mái vươn dài (overhangs) ngăn chặn bức xạ nhiệt trực tiếp, trong khi mặt bằng không gian mở (open-plan) và hệ cửa trượt panorama cho phép gió đối lưu xuyên phòng. Kết hợp cùng hồ bơi sinh thái đóng vai trò như một cỗ máy điều hòa tự nhiên, mang lại không gian sống mát mẻ vĩnh cửu.</p>
+        `
+      },
+      "en": {
+        "Xu Hướng Kiến Trúc Tối Giản Xanh": `
+          <p>Green Minimalist Architecture is becoming a core philosophy at ARCT Studio. By stripping away redundant decorations and focusing on architectural volume proportions, we allow nature to speak.</p>
+          <p>The implementation of smart green patches goes beyond just planting trees; it is a calculated study of wind patterns, microclimates, and natural air purification. Automated shading louvers combined with eco-friendly materials allow the structure to "breathe" naturally, reducing energy consumption by up to 40%.</p>
+          <p>ARCT Studio believes that a perfect living space is where humans and nature seamlessly unite, bringing absolute peace after the hustle of urban life.</p>
+        `,
+        "Tiêu Chuẩn Thiết Kế Phòng Gym & Spa Chuẩn 5 Sao": `
+          <p>Designing Wellness spaces (Gym & Spa) requires extremely strict standards in both technical details and experiential art. A 5-star Spa is not just a place for beauty care, but a "sanctuary" for absolute relaxation.</p>
+          <p>At ARCT Studio, we implement the clear principle of "Static vs. Dynamic". The Spa zone utilizes warm Teak wood, matte natural stone, and indirect lighting with a 2700K color temperature, stimulating deep relaxation and melatonin production.</p>
+          <p>Conversely, the Fitness zone is burst-charged with energy using infinity mirrors, sharp 4000K active lighting, and a state-of-the-art negative ion air ventilation system. Every detail is calculated to maximize the luxury experience.</p>
+        `,
+        "Tích Hợp AI Vào Thiết Kế Kiến Trúc Tương Lai": `
+          <p>Artificial Intelligence (AI) is no longer a sci-fi concept but has become a powerful tool at ARCT Studio. We implement Generative Design to optimize structures and architectural geometries.</p>
+          <p>By inputting sun paths, wind speeds, and lifestyle demands, AI helps generate thousands of floor plan options. From there, our architects fine-tune and select the most perfect spatial solution, ensuring both uniqueness and maximum energy efficiency.</p>
+        `,
+        "Vật Liệu Sinh Học: Tương Lai Của Xây Dựng Bền Vững": `
+          <p>The construction industry is entering a materials revolution, and ARCT Studio is proud to be a pioneer in adopting biomaterials in Vietnam.</p>
+          <p>Mycelium, reinforced rammed earth, and high-tech engineered bamboo have zero carbon footprints while offering an unexpectedly raw, rustic, and luxurious aesthetic. We are turning buildings into living entities that harmonize with their environments.</p>
+        `,
+        "Nghệ Thuật Ánh Sáng Tự Nhiên Trong Nhà Phố Kín": `
+          <p>Townhouses and corner plots always face the challenge of being dark and stuffy. ARCT Studio solves this with the "Art of Sculpting Light".</p>
+          <p>Narrow slit skylights, lightwells with reflecting water pools, and glass blocks are calculated based on a 365-day solar chart. The result is dancing rays of sunlight playing on raw concrete walls, changing hour by hour and turning the home into a living artwork.</p>
+        `,
+        "Phong Cách Brutalism Hiện Đại Lên Ngôi Năm 2026": `
+          <p>Brutalism is making a strong comeback in branded real estate. However, it is no longer about cold raw concrete blocks, but extreme luxury and refinement.</p>
+          <p>ARCT Studio combines wood-textured concrete, polished terrazzo with Italian leather and PVD gold metal accents. The intense contrast between raw architecture and soft, luxurious interior elements creates an unmistakable prestige.</p>
+        `,
+        "Tối Ưu Vi Khí Hậu Trong Thiết Kế Biệt Thự Nhiệt Đới": `
+          <p>Tropical Villas demand a deep understanding of local climates. ARCT Studio's designs always follow the principle of "Shade and Ventilation".</p>
+          <p>Deep overhangs block direct thermal radiation, while open-plan layouts and panoramic sliding glass doors allow cross-ventilation. An ecological pool acts as a natural air conditioner, delivering a perpetually cool living space.</p>
+        `
+      }
+    };
+    return (db[lang] || db["vi"])[title] || `<p>Content updating for: <strong>${title}</strong>.</p>`;
   };
 
   // Blog Card Click Listeners
@@ -338,6 +399,9 @@ document.addEventListener("DOMContentLoaded", () => {
       const imgUrl = card.querySelector("img").src;
       const title = card.querySelector("h3").textContent;
       const category = card.querySelector(".blog-category").textContent;
+      
+      activeModalData = { type: 'blog', imgUrl, title, category }; // Store active modal data
+      
       const modalHtml = `
         <div class="blog-modal-image-wrapper">
           <img src="${imgUrl}" alt="${title}">
@@ -352,14 +416,23 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // Service Detail Database
-  const getServiceDetailContent = (title) => {
-    return ({
-      "Thiết Kế & Thi Công Nhà Phố": "<p>Nhà phố hiện đại đòi hỏi một giải pháp thiết kế cực kỳ tinh gọn, tối đa hóa công năng trên một diện tích hạn chế. Quy trình của chúng tôi bao gồm:</p><ul><li>Phân tích vi khí hậu và hướng nắng gió.</li><li>Thiết kế mặt bằng công năng mở, sử dụng giếng trời và mảng xanh lõi.</li><li>Ứng dụng công nghệ nhà thông minh (Smart Home).</li><li>Thi công xây dựng trọn gói với tiêu chuẩn khắt khe, cam kết sai số dưới 2mm.</li></ul><p><em>Hãy để ARCT Studio kiến tạo tổ ấm trong mơ giữa lòng đô thị cho bạn.</em></p>",
-      "Biệt Thự & Căn Hộ Hạng Sang": "<p>Đẳng cấp của một không gian sống xa xỉ không nằm ở sự dát vàng dát bạc, mà nằm ở tỷ lệ hoàn hảo, vật liệu độc bản và ánh sáng điện ảnh.</p><p>Các chuyên gia của chúng tôi chuyên tư vấn, thiết kế và thi công trọn gói cho biệt thự đơn lập, siêu biệt thự ven biển và penthouse. Đặc quyền của bạn khi làm việc với chúng tôi là:</p><ul><li>Sử dụng nội thất nhập khẩu từ các thương hiệu hàng đầu Châu Âu.</li><li>Thiết kế cảnh quan (Landscape) đồng bộ với phong cách kiến trúc.</li><li>Quản lý dự án chuyên nghiệp theo tiêu chuẩn quốc tế.</li></ul>",
-      "Sauna, Fitness & Wellness": "<p>Là chuyên gia hàng đầu trong mảng Wellness, ARCT Studio mang đến các giải pháp thiết kế Sauna, Steam room và Fitness theo chuẩn y khoa và nghỉ dưỡng 5 sao.</p><p>Hệ thống bao gồm:</p><ul><li>Phòng xông hơi khô (Sauna) sử dụng gỗ Hemlock/Cedar nhập khẩu Canada, chịu nhiệt tốt và tỏa hương thơm tự nhiên.</li><li>Hệ thống đèn tia hồng ngoại (Infrared) giúp trẻ hóa tế bào.</li><li>Setup trang thiết bị phòng Gym hiện đại đạt chuẩn quốc tế.</li></ul><p><em>Sức khỏe của bạn là tài sản quý giá nhất, hãy để chúng tôi chăm sóc nó ngay tại nhà.</em></p>",
-      "Thiết Kế Spa & Boutique Hotel": "<p>Không gian kinh doanh dịch vụ đòi hỏi một bài toán kinh tế kết hợp nghệ thuật trải nghiệm khách hàng hoàn hảo.</p><p>Chúng tôi cung cấp giải pháp toàn diện:</p><ul><li>Quy hoạch Concept tổng thể tạo điểm nhấn 'Wow' cho khách lưu trú.</li><li>Thiết kế chiếu sáng cường độ thấp kích thích sự thư giãn tối đa.</li><li>Tối ưu hóa luồng giao thông nội bộ (Back-of-house) dành riêng cho nhân viên vận hành, không làm phiền khách.</li><li>Tuyển chọn vật liệu chống ẩm, chống trượt, dễ bảo trì nhưng cực kỳ sang trọng.</li></ul>"
-    })[title] || "<p>Chi tiết dịch vụ đang được cập nhật...</p>";
+  // Service Detail Database (Bilingual)
+  const getServiceDetailContent = (title, lang = window.currentGlobalLang) => {
+    const db = {
+      "vi": {
+        "Thiết Kế & Thi Công Nhà Phố": "<p>Nhà phố hiện đại đòi hỏi một giải pháp thiết kế cực kỳ tinh gọn, tối đa hóa công năng trên một diện tích hạn chế. Quy trình của chúng tôi bao gồm:</p><ul><li>Phân tích vi khí hậu và hướng nắng gió.</li><li>Thiết kế mặt bằng công năng mở, sử dụng giếng trời và mảng xanh lõi.</li><li>Ứng dụng công nghệ nhà thông minh (Smart Home).</li><li>Thi công xây dựng trọn gói với tiêu chuẩn khắt khe, cam kết sai số dưới 2mm.</li></ul><p><em>Hãy để ARCT Studio kiến tạo tổ ấm trong mơ giữa lòng đô thị cho bạn.</em></p>",
+        "Biệt Thự & Căn Hộ Hạng Sang": "<p>Đẳng cấp của một không gian sống xa xỉ không nằm ở sự dát vàng dát bạc, mà nằm ở tỷ lệ hoàn hảo, vật liệu độc bản và ánh sáng điện ảnh.</p><p>Các chuyên gia của chúng tôi chuyên tư vấn, thiết kế và thi công trọn gói cho biệt thự đơn lập, siêu biệt thự ven biển và penthouse. Đặc quyền của bạn khi làm việc với chúng tôi là:</p><ul><li>Sử dụng nội thất nhập khẩu từ các thương hiệu hàng đầu Châu Âu.</li><li>Thiết kế cảnh quan (Landscape) đồng bộ với phong cách kiến trúc.</li><li>Quản lý dự án chuyên nghiệp theo tiêu chuẩn quốc tế.</li></ul>",
+        "Sauna, Fitness & Wellness": "<p>Là chuyên gia hàng đầu trong mảng Wellness, ARCT Studio mang đến các giải pháp thiết kế Sauna, Steam room và Fitness theo chuẩn y khoa và nghỉ dưỡng 5 sao.</p><p>Hệ thống bao gồm:</p><ul><li>Phòng xông hơi khô (Sauna) sử dụng gỗ Hemlock/Cedar nhập khẩu Canada, chịu nhiệt tốt và tỏa hương thơm tự nhiên.</li><li>Hệ thống đèn tia hồng ngoại (Infrared) giúp trẻ hóa tế bào.</li><li>Setup trang thiết bị phòng Gym hiện đại đạt chuẩn quốc tế.</li></ul><p><em>Sức khỏe của bạn là tài sản quý giá nhất, hãy để chúng tôi chăm sóc nó ngay tại nhà.</em></p>",
+        "Thiết Kế Spa & Boutique Hotel": "<p>Không gian kinh doanh dịch vụ đòi hỏi một bài toán kinh tế kết hợp nghệ thuật trải nghiệm khách hàng hoàn hảo.</p><p>Chúng tôi cung cấp giải pháp toàn diện:</p><ul><li>Quy hoạch Concept tổng thể tạo điểm nhấn 'Wow' cho khách lưu trú.</li><li>Thiết kế chiếu sáng cường độ thấp kích thích sự thư giãn tối đa.</li><li>Tối ưu hóa luồng giao thông nội bộ (Back-of-house) dành riêng cho nhân viên vận hành, không làm phiền khách.</li><li>Tuyển chọn vật liệu chống ẩm, chống trượt, dễ bảo trì nhưng cực kỳ sang trọng.</li></ul>"
+      },
+      "en": {
+        "Thiết Kế & Thi Công Nhà Phố": "<p>Modern townhouses demand an extremely streamlined design solution that maximizes utility within limited footprints. Our comprehensive process includes:</p><ul><li>Microclimate, sun path, and wind studies.</li><li>Open-plan functional layouts utilizing skylights and interior green lungs.</li><li>Smart Home technology integration.</li><li>Turnkey construction with strict engineering tolerances, guaranteeing variance under 2mm.</li></ul><p><em>Let ARCT Studio construct your dream urban sanctuary.</em></p>",
+        "Biệt Thự & Căn Hộ Hạng Sang": "<p>Prestige in luxury living is not about gilding everything in gold, but about perfect proportions, bespoke materials, and cinematic lighting.</p><p>Our team specializes in consultation, design, and turnkey builds for detached villas, coastal estates, and luxury penthouses. Working with us guarantees you:</p><ul><li>Premium imported furniture from leading European design houses.</li><li>Integrated landscape design that matches the architectural style.</li><li>Professional project management to global standards.</li></ul>",
+        "Sauna, Fitness & Wellness": "<p>As market leaders in high-end Wellness architecture, ARCT Studio delivers custom Sauna, Steam Room, and Fitness solutions of medical-grade and 5-star resort quality.</p><p>Our integrations include:</p><ul><li>Dry saunas built with premium Hemlock/Cedar imported from Canada for thermal resistance and therapeutic aroma.</li><li>Infrared therapy lamps to stimulate cellular rejuvenation.</li><li>State-of-the-art Gym and Fitness layouts matching international standards.</li></ul><p><em>Your health is your greatest wealth; let us curate it directly in the comfort of your home.</em></p>",
+        "Thiết Kế Spa & Boutique Hotel": "<p>Commercial spaces require a perfect synergy between financial viability and experiential customer design.</p><p>We provide a comprehensive turnkey solution:</p><ul><li>Master conceptual planning to deliver a 'Wow' factor for visitors.</li><li>Low-intensity lighting schemes designed for maximum sensory relaxation.</li><li>Intelligent back-of-house flow planning to ensure operations are invisible to guests.</li><li>Meticulous curation of moisture-resistant, non-slip, and low-maintenance luxury materials.</li></ul>"
+      }
+    };
+    return (db[lang] || db["vi"])[title] || "<p>Service details are being updated...</p>";
   };
 
   // Service Card Click Listeners
@@ -368,6 +441,9 @@ document.addEventListener("DOMContentLoaded", () => {
     card.addEventListener("click", e => {
       e.preventDefault();
       const title = card.querySelector("h3").textContent;
+      
+      activeModalData = { type: 'service', title }; // Store active modal data
+      
       const modalHtml = `
         <div class="blog-modal-image-wrapper">
           <img src="./assets/images/hero-bg.jpg" alt="${title}" style="filter: brightness(0.7);">
@@ -441,6 +517,9 @@ document.addEventListener("DOMContentLoaded", () => {
       const title = card.querySelector("h4").textContent;
       const category = card.querySelector("p").textContent;
       const images = projectGalleries[idx] || projectGalleries[0];
+      
+      activeModalData = { type: 'project', title, category, images, idx }; // Store active modal data
+      
       const galleryHtml = images.map(src => `<div class="gallery-item"><img src="${src}" alt="${title}"></div>`).join("");
       const modalHtml = `
         <div class="blog-modal-text" style="padding-bottom: 1rem; border-bottom: 1px solid rgba(0,0,0,0.05);">
