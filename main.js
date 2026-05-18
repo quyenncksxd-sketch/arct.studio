@@ -126,7 +126,33 @@ document.addEventListener("DOMContentLoaded", () => {
     ["HIỆN THỰC HÓA GIẤC MƠ", "DREAM COME TRUE"],
     ["CÔNG TY TNHH THIẾT KẾ XÂY DỰNG ARCT (ARCT Studio)", "ARCT CONSTRUCTION DESIGN CO., LTD (ARCT Studio)"],
     ["Địa chỉ: Phường Thới An, Thành phố Hồ Chí Minh", "Address: Thoi An Ward, Ho Chi Minh City"],
-    ["Gửi Yêu Cầu", "Submit Request"]
+    ["Gửi Yêu Cầu", "Submit Request"],
+    ["Kiến Trúc", "Architecture"],
+    ["Wellness", "Wellness"],
+    ["Công Nghệ", "Technology"],
+    ["Bền Vững", "Sustainability"],
+    ["Nội Thất", "Interior"],
+    ["Xu Hướng", "Trends"],
+    ["Ngoại Thất", "Exterior"],
+    ["Xu Hướng Kiến Trúc Tối Giản Xanh", "Green Minimalist Architecture Trends"],
+    ["Tiêu Chuẩn Thiết Kế Phòng Gym & Spa Chuẩn 5 Sao", "5-Star Gym & Spa Design Standards"],
+    ["Tích Hợp AI Vào Thiết Kế Kiến Trúc Tương Lai", "Integrating AI in Future Architectural Design"],
+    ["Vật Liệu Sinh Học: Tương Lai Của Xây Dựng Bền Vững", "Biomaterials: The Future of Sustainable Construction"],
+    ["Nghệ Thuật Ánh Sáng Tự Nhiên Trong Nhà Phố Kín", "The Art of Natural Light in Narrow Townhouses"],
+    ["Phong Cách Brutalism Hiện Đại Lên Ngôi Năm 2026", "Modern Brutalist Style Rising in 2026"],
+    ["Tối Ưu Vi Khí Hậu Trong Thiết Kế Biệt Thự Nhiệt Đới", "Microclimate Optimization in Tropical Villa Design"],
+    ["Sự kết hợp hoàn hảo giữa vật liệu hiện đại và mảng xanh thiên nhiên, tạo nên không gian sống tối giản nhưng ngập tràn sinh khí.", "The perfect blend of modern materials and natural green elements, creating a minimalist yet life-filled living space."],
+    ["Bí quyết thiết kế ánh sáng, âm thanh và vật liệu để mang lại trải nghiệm thư giãn đẳng cấp nhất cho không gian spa và gym.", "The secrets of lighting, sound, and material design to deliver the ultimate luxury relaxation experience for spa and gym spaces."],
+    ["Cách trí tuệ nhân tạo đang thay đổi cách chúng ta tư duy về không gian và hình khối kiến trúc.", "How artificial intelligence is changing the way we think about space and architectural forms."],
+    ["Sử dụng tre, sợi nấm và đất nện để tạo ra những công trình thân thiện với môi trường mà vẫn bền bỉ.", "Using bamboo, mycelium, and rammed earth to create eco-friendly yet highly durable structures."],
+    ["Giải pháp lấy sáng thông minh giúp ngôi nhà ống luôn ngập tràn năng lượng và ánh nắng mặt trời.", "Smart daylighting solutions to keep row houses filled with energy and natural sunlight."],
+    ["Vẻ đẹp thô ráp của bê tông trần kết hợp cùng nội thất xa xỉ tạo nên sự tương phản đầy cuốn hút.", "The raw beauty of exposed concrete combined with luxury interiors creates a captivating contrast."],
+    ["Tận dụng luồng gió tự nhiên và mảng xanh để làm mát công trình trong điều kiện khí hậu nhiệt đới.", "Utilizing natural wind flow and green foliage to cool down buildings in tropical climate conditions."],
+    ["Đọc thêm →", "Read more →"],
+    ["Giải pháp kiến trúc đương đại nhằm tối ưu hóa diện tích hẹp, đưa ánh sáng tự nhiên và mảng xanh vào lõi không gian, tạo nên những tổ ấm yên bình giữa lòng đô thị náo nhiệt.", "Contemporary architectural solutions to optimize narrow areas, bringing natural light and green spaces into the core, creating peaceful homes amidst the busy city."],
+    ["Thiết kế cá nhân hóa tôn vinh vị thế gia chủ. Từ ngôn ngữ Tân cổ điển đến Siêu thực (Ultra-modern), mọi chi tiết nội - ngoại thất đều được chế tác tinh xảo, định hình phong cách sống xa xỉ.", "Personalized designs honoring the owner's status. From Neoclassical to Ultra-modern, every interior and exterior detail is crafted to define a luxury lifestyle."],
+    ["Tiên phong trong lĩnh vực kiến trúc chăm sóc sức khỏe. Tích hợp công nghệ lọc không khí, chiếu sáng sinh học và âm thanh đa vùng, kiến tạo \"resort tại gia\" giúp tái tạo năng lượng hoàn hảo.", "Pioneering in wellness architecture. Integrating air filtration, biological lighting, and multi-zone sound to create a home resort for perfect energy rejuvenation."],
+    ["Xây dựng trải nghiệm khách hàng xuất sắc thông qua không gian. Quy hoạch luồng giao thông tinh tế, sử dụng vật liệu mộc bản để mang lại cảm giác thư thái tuyệt đối cho mọi giác quan.", "Crafting outstanding customer experiences through space. Designing subtle traffic flows and using rustic materials to bring absolute relaxation to all senses."]
   ];
 
   let currentLang = "vi";
@@ -135,7 +161,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Translate Node
   function translateNode(node, currentLang, targetLang) {
-    if (node.nodeType === 1 && node.hasAttribute("data-en")) {
+    if (node.nodeType === 1 && (node.hasAttribute("data-en") || node.classList.contains("modal-body-content"))) {
       return; // Handled separately
     }
     if (node.nodeType === 3) {
@@ -197,7 +223,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Dynamically update active modal content if open
     if (activeModalData && modalDynamicContent) {
       if (activeModalData.type === 'blog') {
-        const { imgUrl, title, category } = activeModalData;
+        const { idx, imgUrl, title, category } = activeModalData;
         modalDynamicContent.innerHTML = `
           <div class="blog-modal-image-wrapper">
             <img src="${imgUrl}" alt="${title}">
@@ -205,11 +231,11 @@ document.addEventListener("DOMContentLoaded", () => {
           <div class="blog-modal-text">
             <span class="blog-category">${category}</span>
             <h2>${title}</h2>
-            <div class="modal-body-content">${getBlogDetailContent(title, targetLang)}</div>
+            <div class="modal-body-content">${getBlogDetailContent(idx, targetLang)}</div>
           </div>
         `;
       } else if (activeModalData.type === 'service') {
-        const { title } = activeModalData;
+        const { idx, title } = activeModalData;
         modalDynamicContent.innerHTML = `
           <div class="blog-modal-image-wrapper">
             <img src="./assets/images/hero-bg.jpg" alt="${title}" style="filter: brightness(0.7);">
@@ -217,7 +243,7 @@ document.addEventListener("DOMContentLoaded", () => {
           <div class="blog-modal-text">
             <span class="blog-category">Chi Tiết Dịch Vụ</span>
             <h2>${title}</h2>
-            <div class="modal-body-content">${getServiceDetailContent(title, targetLang)}</div>
+            <div class="modal-body-content">${getServiceDetailContent(idx, targetLang)}</div>
           </div>
         `;
       } else if (activeModalData.type === 'project') {
@@ -321,7 +347,30 @@ document.addEventListener("DOMContentLoaded", () => {
   if (modalCloseBg) modalCloseBg.addEventListener("click", closeModal);
 
   // Blog Details Content DB (Bilingual)
-  const getBlogDetailContent = (title, lang = window.currentGlobalLang) => {
+  const getBlogDetailContent = (key, lang = window.currentGlobalLang) => {
+    const titles = [
+      "Xu Hướng Kiến Trúc Tối Giản Xanh",
+      "Tiêu Chuẩn Thiết Kế Phòng Gym & Spa Chuẩn 5 Sao",
+      "Tích Hợp AI Vào Thiết Kế Kiến Trúc Tương Lai",
+      "Vật Liệu Sinh Học: Tương Lai Của Xây Dựng Bền Vững",
+      "Nghệ Thuật ÁSP Tự Nhiên Trong Nhà Phố Kín", // Fallback wildcard match
+      "Nghệ Thuật Ánh Sáng Tự Nhiên Trong Nhà Phố Kín",
+      "Phong Cách Brutalism Hiện Đại Lên Ngôi Năm 2026",
+      "Tối Ưu Vi Khí Hậu Trong Thiết Kế Biệt Thự Nhiệt Đới"
+    ];
+    let title = typeof key === "number" ? titles[key] : (key ? key.trim() : "");
+    const enToViMap = {
+      "Green Minimalist Architecture Trends": "Xu Hướng Kiến Trúc Tối Giản Xanh",
+      "5-Star Gym & Spa Design Standards": "Tiêu Chuẩn Thiết Kế Phòng Gym & Spa Chuẩn 5 Sao",
+      "Integrating AI in Future Architectural Design": "Tích Hợp AI Vào Thiết Kế Kiến Trúc Tương Lai",
+      "Biomaterials: The Future of Sustainable Construction": "Vật Liệu Sinh Học: Tương Lai Của Xây Dựng Bền Vững",
+      "The Art of Natural Light in Narrow Townhouses": "Nghệ Thuật Ánh Sáng Tự Nhiên Trong Nhà Phố Kín",
+      "Modern Brutalist Style Rising in 2026": "Phong Cách Brutalism Hiện Đại Lên Ngôi Năm 2026",
+      "Microclimate Optimization in Tropical Villa Design": "Tối Ưu Vi Khí Hậu Trong Thiết Kế Biệt Thự Nhiệt Đới"
+    };
+    if (enToViMap[title]) {
+      title = enToViMap[title];
+    }
     const db = {
       "vi": {
         "Xu Hướng Kiến Trúc Tối Giản Xanh": `
@@ -392,15 +441,15 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   // Blog Card Click Listeners
-  document.querySelectorAll(".blog-card").forEach(card => {
+  document.querySelectorAll(".blog-card").forEach((card, idx) => {
     card.style.cursor = "pointer";
     card.addEventListener("click", e => {
       e.preventDefault();
       const imgUrl = card.querySelector("img").src;
-      const title = card.querySelector("h3").textContent;
-      const category = card.querySelector(".blog-category").textContent;
+      const title = card.querySelector("h3").textContent.trim();
+      const category = card.querySelector(".blog-category").textContent.trim();
       
-      activeModalData = { type: 'blog', imgUrl, title, category }; // Store active modal data
+      activeModalData = { type: 'blog', idx, imgUrl, title, category }; // Store active modal data
       
       const modalHtml = `
         <div class="blog-modal-image-wrapper">
@@ -409,7 +458,7 @@ document.addEventListener("DOMContentLoaded", () => {
         <div class="blog-modal-text">
           <span class="blog-category">${category}</span>
           <h2>${title}</h2>
-          <div class="modal-body-content">${getBlogDetailContent(title)}</div>
+          <div class="modal-body-content">${getBlogDetailContent(idx)}</div>
         </div>
       `;
       openModal(modalHtml);
@@ -417,7 +466,25 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // Service Detail Database (Bilingual)
-  const getServiceDetailContent = (title, lang = window.currentGlobalLang) => {
+  const getServiceDetailContent = (key, lang = window.currentGlobalLang) => {
+    const titles = [
+      "Thiết Kế & Thi Công Nhà Phố",
+      "Biệt Thự & Căn Hộ Hạng Sang",
+      "Sauna, Fitness & Wellness",
+      "Thiết Kế Spa & Boutique Hotel"
+    ];
+    let title = typeof key === "number" ? titles[key] : (key ? key.trim() : "");
+    const enToViMap = {
+      "Townhouse Design & Build": "Thiết Kế & Thi Công Nhà Phố",
+      "Luxury Villa & Apartment": "Biệt Thự & Căn Hộ Hạng Sang",
+      "Luxury Villas & Penthouses": "Biệt Thự & Căn Hộ Hạng Sang",
+      "Sauna, Fitness & Wellness": "Sauna, Fitness & Wellness",
+      "Spa & Boutique Hotel": "Thiết Kế Spa & Boutique Hotel",
+      "Spa & Boutique Hotel Design": "Thiết Kế Spa & Boutique Hotel"
+    };
+    if (enToViMap[title]) {
+      title = enToViMap[title];
+    }
     const db = {
       "vi": {
         "Thiết Kế & Thi Công Nhà Phố": "<p>Nhà phố hiện đại đòi hỏi một giải pháp thiết kế cực kỳ tinh gọn, tối đa hóa công năng trên một diện tích hạn chế. Quy trình của chúng tôi bao gồm:</p><ul><li>Phân tích vi khí hậu và hướng nắng gió.</li><li>Thiết kế mặt bằng công năng mở, sử dụng giếng trời và mảng xanh lõi.</li><li>Ứng dụng công nghệ nhà thông minh (Smart Home).</li><li>Thi công xây dựng trọn gói với tiêu chuẩn khắt khe, cam kết sai số dưới 2mm.</li></ul><p><em>Hãy để ARCT Studio kiến tạo tổ ấm trong mơ giữa lòng đô thị cho bạn.</em></p>",
@@ -436,13 +503,13 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   // Service Card Click Listeners
-  document.querySelectorAll(".service-card").forEach(card => {
+  document.querySelectorAll(".service-card").forEach((card, idx) => {
     card.style.cursor = "pointer";
     card.addEventListener("click", e => {
       e.preventDefault();
-      const title = card.querySelector("h3").textContent;
+      const title = card.querySelector("h3").textContent.trim();
       
-      activeModalData = { type: 'service', title }; // Store active modal data
+      activeModalData = { type: 'service', idx, title }; // Store active modal data
       
       const modalHtml = `
         <div class="blog-modal-image-wrapper">
@@ -451,7 +518,7 @@ document.addEventListener("DOMContentLoaded", () => {
         <div class="blog-modal-text">
           <span class="blog-category">Chi Tiết Dịch Vụ</span>
           <h2>${title}</h2>
-          <div class="modal-body-content">${getServiceDetailContent(title)}</div>
+          <div class="modal-body-content">${getServiceDetailContent(idx)}</div>
         </div>
       `;
       openModal(modalHtml);
