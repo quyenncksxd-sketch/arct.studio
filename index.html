@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="vi">
 <head>
   <meta charset="UTF-8" />
@@ -6,10 +6,10 @@
   <meta name="description" content="ARCT Studio: Kiêu Hãnh Trong Từng Đường Nét. Chuyên gia thiết kế và thi công Nhà phố, Biệt thự, Spa, Sauna & Wellness.">
   <title>ARCT Studio | Kiến trúc & Thiết kế nội thất</title>
   
-  <!-- Google Fonts: Montserrat and Lato -->
+  <!-- Google Fonts: Jost, Montserrat and Lato -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600;700&family=Lato:wght@300;400;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
   
   <!-- Main Stylesheet -->
   <script type="module" src="./main.js"></script>
@@ -39,6 +39,10 @@
         <div class="lang-switch">
           <span class="lang-btn active" data-lang="vi" style="cursor:pointer; padding: 0.5rem 0;">VN</span> <span style="opacity: 0.5;">/</span> <span class="lang-btn" data-lang="en" style="cursor:pointer; padding: 0.5rem 0;">EN</span>
         </div>
+        <div class="theme-switch" id="theme-switch" style="cursor:pointer; display: flex; align-items: center; justify-content: center; width: 36px; height: 36px; border-radius: 50%;" title="Giao diện Sáng/Tối">
+          <svg id="theme-icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:20px; height:20px; display:none;"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+          <svg id="theme-icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:20px; height:20px;"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+        </div>
         <div class="mobile-menu-btn" id="mobile-menu-btn" style="cursor:pointer;">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:28px; height:28px;"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
         </div>
@@ -51,8 +55,9 @@
     <div class="hero-bg" id="hero-bg"></div>
     <div class="hero-overlay"></div>
     <div class="hero-content grid-container fade-in-up">
-      <h1 class="hero-title" data-en="ARCT Studio: Pride In<br>Every Detail.">ARCT Studio: Kiêu Hãnh Trong<br>Từng Đường Nét.</h1>
-      <p class="hero-subtext" data-en="Experts in designing and constructing Townhouses, Villas, Spas, Saunas & Wellness spaces.">Chuyên gia thiết kế và thi công Nhà phố, Biệt thự, Spa, Sauna & Wellness.</p>
+      <img src="./assets/images/hero-text-only-white.png" alt="ARCT Studio Logo" class="hero-logo-img">
+      <h1 class="hero-title" data-en="REFINEMENT IN EVERY DETAIL.">TINH TẾ TRONG TỪNG ĐƯỜNG NÉT.</h1>
+      <p class="hero-subtext" data-en="Experts in designing and constructing Townhouses, Villas, Spas, Saunas & Wellness spaces.">Chuyên gia thiết kế và thi công Nhà phố, Biệt thự, Spa,<br>Sauna & Wellness.</p>
       <a href="#projects" class="btn btn-primary" data-en="View Projects">Xem Dự Án</a>
     </div>
   </section>
@@ -185,9 +190,21 @@
         <!-- Pricing 1 -->
         <div class="pricing-card fade-in-up">
           <h3>Nhà Phố & Căn Hộ</h3>
-          <div class="price">
-            <span class="amount">350</span>
-            <span class="currency">.000 VNĐ/m²</span>
+          <div class="price" style="display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1.5rem;">
+            <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px dashed rgba(0, 48, 45, 0.15); padding-bottom: 0.5rem;">
+              <span style="font-size: 0.85rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px;">Gói Kiến Trúc:</span>
+              <span>
+                <span class="amount" style="font-size: 1.5rem; font-weight: 700; color: var(--primary-teal);">130</span>
+                <span class="currency" style="font-size: 0.85rem; font-weight: 500; color: var(--text-muted);">.000đ/m²</span>
+              </span>
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: baseline; padding-top: 0.25rem;">
+              <span style="font-size: 0.85rem; font-weight: 600; color: var(--accent-gold); text-transform: uppercase; letter-spacing: 0.5px;">Gói Trọn Gói:</span>
+              <span>
+                <span class="amount" style="font-size: 1.8rem; font-weight: 700; color: var(--accent-gold);">250</span>
+                <span class="currency" style="font-size: 0.9rem; font-weight: 600; color: var(--accent-gold);">.000đ/m²</span>
+              </span>
+            </div>
           </div>
           <ul class="pricing-features">
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg> Phối cảnh 3D ngoại thất & nội thất</li>
@@ -203,9 +220,21 @@
         <div class="pricing-card featured fade-in-up" style="transition-delay: 0.1s;">
           <div class="badge">Được Yêu Thích</div>
           <h3>Biệt Thự Hạng Sang</h3>
-          <div class="price">
-            <span class="amount">550</span>
-            <span class="currency">.000 VNĐ/m²</span>
+          <div class="price" style="display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1.5rem;">
+            <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px dashed rgba(255, 255, 255, 0.2); padding-bottom: 0.5rem;">
+              <span style="font-size: 0.85rem; font-weight: 600; color: rgba(255, 255, 255, 0.85); text-transform: uppercase; letter-spacing: 0.5px;">Gói Kiến Trúc:</span>
+              <span>
+                <span class="amount" style="font-size: 1.5rem; font-weight: 700; color: #ffffff;">180</span>
+                <span class="currency" style="font-size: 0.85rem; font-weight: 500; color: rgba(255, 255, 255, 0.85);">.000đ/m²</span>
+              </span>
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: baseline; padding-top: 0.25rem;">
+              <span style="font-size: 0.85rem; font-weight: 600; color: var(--accent-gold); text-transform: uppercase; letter-spacing: 0.5px;">Gói Trọn Gói:</span>
+              <span>
+                <span class="amount" style="font-size: 1.8rem; font-weight: 700; color: var(--accent-gold);">350</span>
+                <span class="currency" style="font-size: 0.9rem; font-weight: 600; color: var(--accent-gold);">.000đ/m²</span>
+              </span>
+            </div>
           </div>
           <ul class="pricing-features">
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg> Phối cảnh 3D siêu thực (Hyper-Realistic)</li>
@@ -220,9 +249,21 @@
         <!-- Pricing 3 -->
         <div class="pricing-card fade-in-up" style="transition-delay: 0.2s;">
           <h3>Spa & Wellness</h3>
-          <div class="price">
-            <span class="amount">800</span>
-            <span class="currency">.000 VNĐ/m²</span>
+          <div class="price" style="display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1.5rem;">
+            <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px dashed rgba(0, 48, 45, 0.15); padding-bottom: 0.5rem;">
+              <span style="font-size: 0.85rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px;">Gói Kiến Trúc:</span>
+              <span>
+                <span class="amount" style="font-size: 1.5rem; font-weight: 700; color: var(--primary-teal);">250</span>
+                <span class="currency" style="font-size: 0.85rem; font-weight: 500; color: var(--text-muted);">.000đ/m²</span>
+              </span>
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: baseline; padding-top: 0.25rem;">
+              <span style="font-size: 0.85rem; font-weight: 600; color: var(--accent-gold); text-transform: uppercase; letter-spacing: 0.5px;">Gói Trọn Gói:</span>
+              <span>
+                <span class="amount" style="font-size: 1.8rem; font-weight: 700; color: var(--accent-gold);">450</span>
+                <span class="currency" style="font-size: 0.9rem; font-weight: 600; color: var(--accent-gold);">.000đ/m²</span>
+              </span>
+            </div>
           </div>
           <ul class="pricing-features">
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg> Concept trải nghiệm không gian 5 sao</li>
@@ -383,6 +424,17 @@
         <!-- Content injected via JS -->
       </div>
     </div>
+  </div>
+
+  <!-- LIGHTBOX SLIDER MODAL -->
+  <div id="lightbox" class="lightbox">
+    <div class="lightbox-overlay" id="lightbox-overlay"></div>
+    <button class="lightbox-close" id="lightbox-close" title="Đóng">&times;</button>
+    <button class="lightbox-nav lightbox-prev" id="lightbox-prev" title="Ảnh trước">&#10094;</button>
+    <button class="lightbox-nav lightbox-next" id="lightbox-next" title="Ảnh sau">&#10095;</button>
+    <img id="lightbox-img" class="lightbox-img" src="" alt="ARCT Studio Project Gallery Item">
+    <div class="lightbox-counter" id="lightbox-counter">1 / 6</div>
+    <div class="lightbox-hint">Vuốt hoặc sử dụng mũi tên bàn phím để chuyển ảnh</div>
   </div>
 
 </body>

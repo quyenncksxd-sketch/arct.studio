@@ -10,6 +10,31 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
+  // Light/Dark Theme Switcher
+  const themeSwitchBtn = document.getElementById("theme-switch");
+  
+  const getPreferredTheme = () => {
+    const savedTheme = localStorage.getItem("theme");
+    if (savedTheme) return savedTheme;
+    return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+  };
+
+  const setTheme = (theme) => {
+    document.documentElement.setAttribute("data-theme", theme);
+    localStorage.setItem("theme", theme);
+  };
+
+  // Apply initial theme
+  setTheme(getPreferredTheme());
+
+  if (themeSwitchBtn) {
+    themeSwitchBtn.addEventListener("click", () => {
+      const currentTheme = document.documentElement.getAttribute("data-theme");
+      const newTheme = currentTheme === "dark" ? "light" : "dark";
+      setTheme(newTheme);
+    });
+  }
+
   // Mobile Menu
   const mobileMenuBtn = document.getElementById('mobile-menu-btn');
   const mainNav = document.getElementById('main-nav');
@@ -69,6 +94,9 @@ document.addEventListener("DOMContentLoaded", () => {
     ["Biệt Thự Hạng Sang", "Luxury Villa"],
     ["Được Yêu Thích", "Most Popular"],
     [".000 VNĐ/m²", ".000 VND/m²"],
+    ["Gói Kiến Trúc:", "Architecture Package:"],
+    ["Gói Trọn Gói:", "Full Package:"],
+    [".000đ/m²", ".000 VND/m²"],
     ["Phối cảnh 3D ngoại thất & nội thất", "3D Exterior & Interior Perspective"],
     ["Hồ sơ kỹ thuật thi công chi tiết", "Detailed Technical Construction Profile"],
     ["Dự toán chi phí vật tư cơ bản", "Basic Material Cost Estimate"],
@@ -91,8 +119,7 @@ document.addEventListener("DOMContentLoaded", () => {
     ["Gửi Tin Nhắn", "Send Message"],
     ["Chi Tiết Dịch Vụ", "Service Details"],
     ["Khám phá bộ sưu tập 6 hình ảnh chi tiết của dự án, thể hiện rõ nét triết lý thiết kế và mức độ hoàn thiện tinh xảo của ARCT Studio.", "Explore a collection of 6 detailed project images, clearly expressing ARCT Studio's design philosophy and exquisite level of completion."],
-    ["ARCT Studio: Kiêu Hãnh Trong", "ARCT Studio: Pride In"],
-    ["Từng Đường Nét.", "Every Detail."],
+    ["TINH TẾ TRONG TỪNG ĐƯỜNG NÉT.", "REFINEMENT IN EVERY DETAIL."],
     ["KIẾN TẠO DI SẢN", "CRAFTING TIMELESS"],
     ["VƯỢT THỜI GIAN", "LEGACIES"],
     ["HÃY CÙNG CHÚNG TÔI", "LET'S MAKE YOUR"],
@@ -426,6 +453,108 @@ document.addEventListener("DOMContentLoaded", () => {
         </div>
       `;
       openModal(modalHtml);
+
+      // Connect modal gallery items to the Lightbox
+      const modalDynamicContent = document.getElementById("modal-dynamic-content");
+      if (modalDynamicContent) {
+        modalDynamicContent.querySelectorAll(".gallery-item").forEach((item, imgIdx) => {
+          item.addEventListener("click", () => {
+            openLightbox(images, imgIdx);
+          });
+        });
+      }
     });
   });
+
+  // Lightbox Implementation
+  const lightbox = document.getElementById("lightbox");
+  const lightboxImg = document.getElementById("lightbox-img");
+  const lightboxCounter = document.getElementById("lightbox-counter");
+  const lightboxCloseBtn = document.getElementById("lightbox-close");
+  const lightboxPrevBtn = document.getElementById("lightbox-prev");
+  const lightboxNextBtn = document.getElementById("lightbox-next");
+  const lightboxOverlay = document.getElementById("lightbox-overlay");
+
+  let activeGalleryImages = [];
+  let currentImageIdx = 0;
+
+  const showLightboxImage = (index) => {
+    currentImageIdx = index;
+    lightboxImg.src = activeGalleryImages[currentImageIdx];
+    lightboxCounter.textContent = `${currentImageIdx + 1} / ${activeGalleryImages.length}`;
+    
+    // Trigger smooth fade and scale animation
+    lightboxImg.classList.remove("fade-anim");
+    void lightboxImg.offsetWidth; // Trigger reflow
+    lightboxImg.classList.add("fade-anim");
+  };
+
+  const openLightbox = (imagesList, startIdx) => {
+    activeGalleryImages = imagesList;
+    showLightboxImage(startIdx);
+    lightbox.classList.add("active");
+    document.body.style.overflow = "hidden"; // Disable scroll
+  };
+
+  const closeLightbox = () => {
+    lightbox.classList.remove("active");
+    // Only restore body scrolling if the main detail modal is closed
+    const detailModal = document.getElementById("detail-modal");
+    if (detailModal && !detailModal.classList.contains("active")) {
+      document.body.style.overflow = "auto";
+    }
+  };
+
+  const nextLightboxImage = () => {
+    if (activeGalleryImages.length === 0) return;
+    let nextIdx = currentImageIdx + 1;
+    if (nextIdx >= activeGalleryImages.length) nextIdx = 0;
+    showLightboxImage(nextIdx);
+  };
+
+  const prevLightboxImage = () => {
+    if (activeGalleryImages.length === 0) return;
+    let prevIdx = currentImageIdx - 1;
+    if (prevIdx < 0) prevIdx = activeGalleryImages.length - 1;
+    showLightboxImage(prevIdx);
+  };
+
+  if (lightboxCloseBtn) lightboxCloseBtn.addEventListener("click", closeLightbox);
+  if (lightboxOverlay) lightboxOverlay.addEventListener("click", closeLightbox);
+  if (lightboxPrevBtn) lightboxPrevBtn.addEventListener("click", prevLightboxImage);
+  if (lightboxNextBtn) lightboxNextBtn.addEventListener("click", nextLightboxImage);
+
+  // Keyboard controls
+  window.addEventListener("keydown", e => {
+    if (!lightbox || !lightbox.classList.contains("active")) return;
+    if (e.key === "ArrowRight") nextLightboxImage();
+    if (e.key === "ArrowLeft") prevLightboxImage();
+    if (e.key === "Escape") closeLightbox();
+  });
+
+  // Touch swipe gesture controls for mobile support
+  let touchStartX = 0;
+  let touchEndX = 0;
+
+  if (lightbox) {
+    lightbox.addEventListener("touchstart", e => {
+      touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true });
+
+    lightbox.addEventListener("touchend", e => {
+      touchEndX = e.changedTouches[0].screenX;
+      handleSwipe();
+    }, { passive: true });
+  }
+
+  const handleSwipe = () => {
+    const swipeThreshold = 55;
+    if (touchEndX < touchStartX - swipeThreshold) {
+      // Swiped Left -> Next image
+      nextLightboxImage();
+    } else if (touchEndX > touchStartX + swipeThreshold) {
+      // Swiped Right -> Previous image
+      prevLightboxImage();
+    }
+  };
 });

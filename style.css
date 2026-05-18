@@ -62,6 +62,38 @@
   color: var(--primary-teal);
 }
 
+/* Theme Toggle Styles */
+.theme-switch {
+  color: var(--primary-teal);
+  transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275), color var(--transition-fast);
+}
+
+.theme-switch:hover {
+  transform: scale(1.1);
+  background-color: rgba(0, 48, 45, 0.05);
+}
+
+[data-theme="dark"] .theme-switch:hover {
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+[data-theme="dark"] #theme-icon-sun {
+  display: block !important;
+}
+
+[data-theme="dark"] #theme-icon-moon {
+  display: none !important;
+}
+
+[data-theme="dark"] .section-body {
+  color: #cccccc;
+}
+
+/* Smooth Luxury Transition for Theme Switching */
+body, header, .service-card, .pricing-card, .blog-card, .btn, .footer {
+  transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+}
+
 /* =========================================
    Reset & Base Styles
    ========================================= */
@@ -263,7 +295,7 @@ section {
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(to right, rgba(0, 48, 45, 0.9) 0%, rgba(0, 48, 45, 0.4) 100%);
+  background: radial-gradient(circle, rgba(0, 48, 45, 0.65) 0%, rgba(0, 48, 45, 0.88) 100%);
   z-index: 2;
 }
 
@@ -273,26 +305,30 @@ section {
   max-width: 800px;
   padding-top: 80px; /* Offset header */
   color: #ffffff;
-  text-align: left;
+  text-align: center;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .hero-title {
   font-family: 'Futura Medium', 'Futura', 'Jost', sans-serif;
-  font-size: 4.5rem;
+  font-size: 2.25rem;
   color: #ffffff;
-  margin-bottom: 1.5rem;
-  letter-spacing: -1px;
+  margin-bottom: 2rem;
+  letter-spacing: 2px;
   font-weight: 700;
-  line-height: 1.1;
+  line-height: 1.3;
   text-transform: uppercase;
 }
 
 .hero-logo-img {
   display: block;
-  max-width: 450px;
+  max-width: 440px;
   width: 100%;
   height: auto;
-  margin: 0 0 1.5rem 0; /* Align left to match original ARCT text */
+  margin: 0 auto 2.5rem;
 }
 
 .hero-slogan {
@@ -303,13 +339,15 @@ section {
 }
 
 .hero-subtext {
-  font-size: 1.25rem;
-  color: rgba(255,255,255,0.9);
-  margin-bottom: 2.5rem;
-  max-width: 600px;
+  font-size: 1.15rem;
+  color: rgba(255,255,255,0.95);
+  margin-bottom: 3rem;
+  max-width: 580px;
   border-left: 3px solid var(--accent-gold);
   padding-left: 1.5rem;
   line-height: 1.6;
+  text-align: left;
+  align-self: center;
 }
 
 .hero-content .btn-primary {
@@ -712,7 +750,7 @@ section {
    ========================================= */
 .footer {
   background-color: var(--bg-dark);
-  color: var(--text-light);
+  color: #f5f5f5;
   padding-top: 6rem;
   background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
 }
@@ -754,7 +792,7 @@ section {
   height: 40px;
   border: 1px solid rgba(255,255,255,0.2);
   border-radius: 50%;
-  color: var(--bg-white);
+  color: #ffffff;
 }
 
 .social-links a:hover {
@@ -777,7 +815,7 @@ section {
   padding: 1rem;
   background-color: rgba(255,255,255,0.05);
   border: 1px solid rgba(255,255,255,0.1);
-  color: var(--bg-white);
+  color: #ffffff;
   font-family: var(--font-body);
   transition: border-color var(--transition-fast);
 }
@@ -1153,4 +1191,51 @@ section {
   }
   .lightbox-prev { left: 10px; }
   .lightbox-next { right: 10px; }
+}
+
+.lightbox-counter {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 3002;
+  color: rgba(255,255,255,0.75);
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  letter-spacing: 2px;
+}
+.lightbox-hint {
+  position: absolute;
+  bottom: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 3002;
+  color: rgba(255,255,255,0.35);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Lightbox Image Animation */
+.lightbox-img.fade-anim {
+  animation: lightboxFade 0.35s ease;
+}
+
+@keyframes lightboxFade {
+  from { opacity: 0; transform: scale(0.96); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* Force all blog posts, articles, modals, and text body elements to render in Futura Medium */
+.blog-card,
+.blog-card p,
+.blog-card h3,
+.blog-content p,
+.blog-modal-content,
+.blog-modal-text,
+.blog-modal-text h2,
+.blog-modal-text p,
+.modal-body-content,
+.modal-body-content p {
+  font-family: 'Futura Medium', 'Futura', 'Jost', sans-serif !important;
 }
