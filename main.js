@@ -319,7 +319,31 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Contact Form Submission
   const contactForm = document.getElementById("contact-form");
-  if (contactForm)  // Modal Functionality
+  if (contactForm) {
+    contactForm.addEventListener("submit", e => {
+      e.preventDefault();
+      const submitBtn = contactForm.querySelector('button[type="submit"]');
+      const originalText = submitBtn.textContent;
+      submitBtn.textContent = "Đang Gửi...";
+      submitBtn.disabled = true;
+
+      setTimeout(() => {
+        submitBtn.textContent = "Đã Gửi Thành Công!";
+        submitBtn.style.backgroundColor = "#2ecc71";
+        submitBtn.style.borderColor = "#2ecc71";
+        contactForm.reset();
+
+        setTimeout(() => {
+          submitBtn.textContent = originalText;
+          submitBtn.style.backgroundColor = "";
+          submitBtn.style.borderColor = "";
+          submitBtn.disabled = false;
+        }, 3000);
+      }, 1500);
+    });
+  }
+
+  // Modal Functionality
   const modal = document.getElementById("detail-modal");
   const modalCloseBtn = document.getElementById("detail-modal-close-btn");
   const modalCloseBg = document.getElementById("detail-modal-close-bg");
@@ -353,7 +377,6 @@ document.addEventListener("DOMContentLoaded", () => {
       "Tiêu Chuẩn Thiết Kế Phòng Gym & Spa Chuẩn 5 Sao",
       "Tích Hợp AI Vào Thiết Kế Kiến Trúc Tương Lai",
       "Vật Liệu Sinh Học: Tương Lai Của Xây Dựng Bền Vững",
-      "Nghệ Thuật ÁSP Tự Nhiên Trong Nhà Phố Kín", // Fallback wildcard match
       "Nghệ Thuật Ánh Sáng Tự Nhiên Trong Nhà Phố Kín",
       "Phong Cách Brutalism Hiện Đại Lên Ngôi Năm 2026",
       "Tối Ưu Vi Khí Hậu Trong Thiết Kế Biệt Thự Nhiệt Đới"
