@@ -537,9 +537,9 @@ section {
    ========================================= */
 .pricing-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 2rem;
-  align-items: center;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 2.0rem;
+  align-items: stretch;
 }
 
 .pricing-card {
